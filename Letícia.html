@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DarkTok</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .feed-container {
+            width: 100%;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .video-card {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            scroll-snap-align: start;
+            overflow: hidden;
+        }
+        
+        video, .video-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Side buttons (like, share, etc) */
+        .side-buttons {
+            position: absolute;
+            right: 15px;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .action-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            font-size: 13px;
+        }
+        
+        .action-icon {
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .like .action-icon {
+            color: #ff0050;
+        }
+        
+        /* Profile info */
+        .profile-info {
+            position: absolute;
+            bottom: 100px;
+            left: 15px;
+            display: flex;
+            flex-direction: column;
+            max-width: 70%;
+        }
+        
+        .profile-name {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ff0050;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        .username {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .follow-btn {
+            background-color: #ff0050;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 3px 10px;
+            font-size: 14px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .video-description {
+            font-size: 14px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .music {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .music-icon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        /* Premium button */
+        .premium-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, #ff0050, #ff4500);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 5px 20px rgba(255, 0, 80, 0.5);
+            z-index: 100;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            animation: pulse 2s infinite;
+        }
+        
+        .premium-btn::before {
+            content: "🔞";
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+        
+        /* Loading spinner */
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: #ff0050;
+            animation: spin 1s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .video-card.loading .loader {
+            opacity: 1;
+        }
+        
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
+    <!-- Ãcones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="feed-container" id="feed">
+        <!-- VÃ­deo 1 -->
+        <div class="video-card">
+            <video autoplay loop muted playsinline>
+                <source src="https://files.catbox.moe/accfv6.mp4" type="video/mp4">
+            </video>
+            
+            <div class="side-buttons">
+                <div class="action-button like">
+                    <div class="action-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <span>152.3K</span>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <span></span>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">
+                        <i class="fas fa-share"></i>
+                    </div>
+                    <span>Compartilhar</span>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">
+                        <i class="fas fa-bookmark"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-info">
+                <div class="profile-name">
+                    <img src="https://files.catbox.moe/l0u5k6.jpg" class="profile-pic">
+                    <span class="username">@Leticia</span>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+                
+                <div class="video-description">Dancando ate o sol raiar! ¨ #dance #nightlife</div>
+                
+                <div class="music">
+                    <i class="fas fa-music music-icon"></i>
+                    <span>Som Original - Leticia</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- VÃ­deo 2 -->
+        <div class="video-card">
+            <img src="https://files.catbox.moe/l0u5k6.jpg" class="video-img" alt="Cidade Noturna">
+            
+            <div class="side-buttons">
+                <div class="action-button like">
+                    <div class="action-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <span>89.7K</span>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <span></span>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">
+                        <i class="fas fa-share"></i>
+                    </div>
+                    <span>Compartilhar</span>
+                </div>
+            </div>
+            
+            <div class="profile-info">
+                <div class="profile-name">
+                    <img src="https://files.catbox.moe/l0u5k6.jpg" class="profile-pic">
+                    <span class="username">@Leticia</span>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+                
+                <div class="video-description">corre pro premium #urban #nightphotography</div>
+                
+                <div class="music">
+                    <i class="fas fa-music music-icon"></i>
+                    <span>Night Vibes - Urban Explorer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+          <div class="feed-container" id="feed">
+        <!-- VÃ­deo 3 -->
+        <div class="video-card">
+            <video autoplay loop muted playsinline>
+                <source src="https://files.catbox.moe/9oh5rw.mp4" type="video/mp4">
+            </video>
+            
+            <div class="side-buttons">
+                <div class="action-button like">
+                    <div class="action-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <span>89.7K</span>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <span></span>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">
+                        <i class="fas fa-share"></i>
+                    </div>
+                    <span>Compartilhar</span>
+                </div>
+            </div>
+            
+            <div class="profile-info">
+                <div class="profile-name">
+                    <img src="https://files.catbox.moe/l0u5k6.jpg" class="profile-pic">
+                    <span class="username">@Leticia</span>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+                
+                <div class="video-description">corre pro premium #urban #nightphotography</div>
+                
+                <div class="music">
+                    <i class="fas fa-music music-icon"></i>
+                    <span>Night Vibes - Urban Explorer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="premium-btn" id="premiumBtn">Conteudo</button>
+    
+    <script>
+        // BotÃ£o premium
+        document.getElementById('premiumBtn').addEventListener('click', function() {
+            window.open('https://wa.me/5538997288821?text=Acessar%20premium%2C%20Leiticia%20');
+        });
+        
+        // Simula loading entre os vÃ­deos
+        const feed = document.getElementById('feed');
+        const videoCards = document.querySelectorAll('.video-card');
+        
+        feed.addEventListener('scroll', () => {
+            videoCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
+                    card.classList.add('loading');
+                    setTimeout(() => {
+                        card.classList.remove('loading');
+                    }, 800);
+                }
+            });
+        });
+        
+        // Pausa vÃ­deos quando nÃ£o estÃ£o visÃ­veis
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target.querySelector('video');
+                if (video) {
+                    if (entry.isIntersecting) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                }
+            });
+        }, { threshold: 0.7 });
+        
+        videoCards.forEach(card => {
+            observer.observe(card);
+        });
+        
+        // Like animation
+        document.querySelectorAll('.like .action-icon').forEach(icon => {
+            icon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('liked');
+                
+                if (this.classList.contains('liked')) {
+                    this.innerHTML = '<i class="fas fa-heart"></i>';
+                    this.style.color = '#ff0050';
+                    this.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

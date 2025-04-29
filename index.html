@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria Dark</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #fff;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            flex-shrink: 0;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff3333;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+        }
+        
+        .gallery-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 20px;
+            width: 100%;
+        }
+        
+        .columns-wrapper {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            gap: 20px;
+        }
+        
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 0;
+        }
+        
+        .photo-card {
+            width: 100%;
+            aspect-ratio: 9/16; /* Proporção mais adequada para fotos */
+            overflow: hidden;
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.6s ease;
+            border: 2px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .photo-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 51, 51, 0.3);
+            border-color: #ff3333;
+        }
+        
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Alterado para 'contain' para mostrar a imagem completa */
+            background-color: #000; /* Fundo preto para áreas não preenchidas */
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-card:hover img {
+            transform: scale(1.03);
+        }
+        
+        .photo-title {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+            z-index: 2;
+        }
+        
+        @keyframes clickAnimation {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 51, 51, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 30px rgba(255, 51, 51, 0.8);
+            }
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+                box-shadow: 0 0 40px rgba(255, 51, 51, 1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">GALERIA RED</div>
+    </div>
+    
+    <div class="gallery-container">
+        <div class="columns-wrapper">
+            <!-- Coluna 1 -->
+            <div class="column">
+                <div class="photo-card" data-target="Marilia.html">
+                    <div class="photo-title">Marilia</div>
+                    <img src="https://files.catbox.moe/khhmpx.jpeg" alt="Marilia">
+                </div>
+                <div class="photo-card" data-target="Letícia.html">
+                    <div class="photo-title">Leticia</div>
+                    <img src="https://files.catbox.moe/l0u5k6.jpg" alt="Leticia">
+                </div>
+            </div>
+            
+            <!-- Coluna 2 -->
+            <div class="column">
+                <div class="photo-card" data-target="foto3.html">
+                    <div class="photo-title">Retrato</div>
+                    <img src="https://source.unsplash.com/random/600x900?portrait" alt="Retrato">
+                </div>
+                <div class="photo-card" data-target="foto4.html">
+                    <div class="photo-title">Abstrato</div>
+                    <img src="https://source.unsplash.com/random/600x900?abstract" alt="Abstrato">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animação de entrada
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.photo-card');
+            
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, 200 * index);
+                
+                // Evento de clique
+                card.addEventListener('click', function() {
+                    const targetPage = this.getAttribute('data-target');
+                    this.classList.add('clicked');
+                    
+                    setTimeout(() => {
+                        window.location.href = targetPage;
+                    }, 800);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
