@@ -1,149 +1,168 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria Dark</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #fff;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        .header {
-            text-align: center;
-            padding: 20px 0;
-            flex-shrink: 0;
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #ff3333;
-            text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
-        }
-        
-        .gallery-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-grow: 1;
-            padding: 20px;
-            width: 100%;
-        }
-        
-        .columns-wrapper {
-            display: flex;
-            max-width: 900px;
-            width: 100%;
-            gap: 20px;
-        }
-        
-        .column {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            min-width: 0;
-        }
-        
-        .photo-card {
-            width: 100%;
-            aspect-ratio: 9/16; /* Proporção mais adequada para fotos */
-            overflow: hidden;
-            position: relative;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            transform: translateY(50px);
-            opacity: 0;
-            transition: all 0.6s ease;
-            border: 2px solid #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .photo-card.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .photo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(255, 51, 51, 0.3);
-            border-color: #ff3333;
-        }
-        
-        .photo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Alterado para 'contain' para mostrar a imagem completa */
-            background-color: #000; /* Fundo preto para áreas não preenchidas */
-            transition: transform 0.5s ease;
-        }
-        
-        .photo-card:hover img {
-            transform: scale(1.03);
-        }
-        
-        .photo-title {
-            position: absolute;
-            top: 15px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-            padding: 10px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
-            z-index: 2;
-        }
-        
-        @keyframes clickAnimation {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 20px rgba(255, 51, 51, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                box-shadow: 0 0 30px rgba(255, 51, 51, 0.8);
-            }
-            100% {
-                transform: scale(1.3);
-                opacity: 0;
-                box-shadow: 0 0 40px rgba(255, 51, 51, 1);
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso Exclusivo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #ff6b6b;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .btn {
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin: 10px 0;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #ff5252;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 15px 0;
+    }
+
+    .features {
+      text-align: left;
+      margin: 20px 0;
+    }
+
+    .feature-item {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .feature-item::before {
+      content: "✔️";
+      color: #ff6b6b;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .countdown {
+      font-size: 14px;
+      color: #777;
+      margin: 15px 0;
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">GALERIA RED</div>
+  <div class="container">
+    <!-- Página Inicial -->
+    <div id="initial-page">
+      <h1>🔒 ÁREA PRIVADA</h1>
+      <p>Você foi convidado para acessar uma comunidade exclusiva. Confirme o acesso abaixo.</p>
+
+      <div class="features">
+        <div class="feature-item">Conteúdos liberados diariamente</div>
+        <div class="feature-item">Interação com membros ativos</div>
+        <div class="feature-item">Acesso exclusivo e limitado</div>
+      </div>
+
+      <div class="checkbox-label">
+        <input type="checkbox" id="age-checkbox">
+        <label for="age-checkbox">Confirmo que tenho acesso autorizado</label>
+      </div>
+
+      <button class="btn" id="verify-btn">ENTRAR NA COMUNIDADE</button>
+
+      <div class="countdown" id="countdown">Vagas limitadas! Restam <span id="counter">12</span> acessos...</div>
     </div>
-    
-    <div class="gallery-container">
-        <div class="columns-wrapper">
-            <!-- Coluna 1 -->
-            <div class="column">
-                <div class="photo-card" data-target="Marilia.html">
-                    <div class="photo-title">Marilia</div>
-                    <img src="https://files.catbox.moe/khhmpx.jpeg" alt="Marilia">
-                </div>
-                <div class="photo-card" data-target="Letícia.html">
-                    <div class="photo-title">Leticia</div>
-                    <img src="https://files.catbox.moe/l0u5k6.jpg" alt="Leticia">
-                </div>
-            </div>
-    </script>
+
+    <!-- Página de Redirecionamento -->
+    <div id="redirect-page" class="hidden">
+      <h1>✅ ACESSO LIBERADO</h1>
+      <p>Você será redirecionado para a comunidade exclusiva...</p>
+      <p><small>Se não for redirecionado, <a href="#" id="manual-link">clique aqui</a>.</small></p>
+    </div>
+  </div>
+
+  <script>
+    const verifyBtn = document.getElementById('verify-btn');
+    const ageCheckbox = document.getElementById('age-checkbox');
+    const initialPage = document.getElementById('initial-page');
+    const redirectPage = document.getElementById('redirect-page');
+    const manualLink = document.getElementById('manual-link');
+    const counter = document.getElementById('counter');
+
+    // SEU LINK DO TELEGRAM OU ABRE.AI AQUI:
+    const telegramLink = "https://abre.ai/ncKc";
+
+    // Contador falso
+    let count = 12;
+    const countdownInterval = setInterval(() => {
+      count--;
+      counter.textContent = count;
+      if (count <= 0) clearInterval(countdownInterval);
+    }, 5000);
+
+    verifyBtn.addEventListener('click', () => {
+      if (ageCheckbox.checked) {
+        initialPage.classList.add('hidden');
+        redirectPage.classList.remove('hidden');
+        setTimeout(() => {
+          window.location.href = telegramLink;
+        }, 3000);
+      } else {
+        alert("Você precisa marcar a confirmação para continuar.");
+      }
+    });
+
+    manualLink.href = telegramLink;
+    manualLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = telegramLink;
+    });
+
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+  </script>
 </body>
 </html>
