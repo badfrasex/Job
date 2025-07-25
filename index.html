@@ -2,167 +2,65 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <title>Conteúdo Exclusivo 🔥</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acesso Exclusivo</title>
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
-    }
-
-    body {
-      background-color: #f5f5f5;
-      color: #333;
-      line-height: 1.6;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       text-align: center;
     }
 
     h1 {
-      font-size: 24px;
-      margin-bottom: 15px;
-      color: #ff6b6b;
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #ff5e5e;
     }
 
     p {
-      margin-bottom: 20px;
       font-size: 16px;
+      margin: 10px 30px;
     }
 
-    .hidden {
-      display: none;
-    }
-
-    .btn {
-      background-color: #ff6b6b;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
-      margin: 10px 0;
+    a {
       display: inline-block;
+      margin-top: 25px;
+      padding: 15px 30px;
+      background: #ff5e5e;
+      color: #fff;
       text-decoration: none;
-    }
-
-    .btn:hover {
-      background-color: #ff5252;
-    }
-
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 15px 0;
-    }
-
-    .features {
-      text-align: left;
-      margin: 20px 0;
-    }
-
-    .feature-item {
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-    }
-
-    .feature-item::before {
-      content: "✔️";
-      color: #ff6b6b;
-      margin-right: 10px;
+      border-radius: 8px;
       font-weight: bold;
+      transition: background 0.3s;
     }
 
-    .countdown {
-      font-size: 14px;
-      color: #777;
-      margin: 15px 0;
+    a:hover {
+      background: #e64545;
+    }
+
+    small {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Página Inicial -->
-    <div id="initial-page">
-      <h1>🔒 ÁREA PRIVADA</h1>
-      <p>Você foi convidado para acessar uma comunidade exclusiva. Confirme o acesso abaixo.</p>
+  <h1>🔞 Acesso Privado Liberado</h1>
+  <p>Você foi convidado para ver conteúdos que **não estão disponíveis publicamente**.<br><br>
+  Acesse agora e descubra o que está sendo comentado por todos. 😈</p>
 
-      <div class="features">
-        <div class="feature-item">Conteúdos liberados diariamente</div>
-        <div class="feature-item">Interação com membros ativos</div>
-        <div class="feature-item">Acesso exclusivo e limitado</div>
-      </div>
+  <!-- SUBSTITUA O LINK ABAIXO PELO SEU -->
+  <a href="https://t.me/+xRKYj01s2gI5NTAx" target="_blank">ACESSAR AGORA</a>
 
-      <div class="checkbox-label">
-        <input type="checkbox" id="age-checkbox">
-        <label for="age-checkbox">Confirmo que tenho acesso autorizado</label>
-      </div>
-
-      <button class="btn" id="verify-btn">ENTRAR NA COMUNIDADE</button>
-
-      <div class="countdown" id="countdown">Vagas limitadas! Restam <span id="counter">12</span> acessos...</div>
-    </div>
-
-    <!-- Página de Redirecionamento -->
-    <div id="redirect-page" class="hidden">
-      <h1>✅ ACESSO LIBERADO</h1>
-      <p>Você será redirecionado para a comunidade exclusiva...</p>
-      <p><small>Se não for redirecionado, <a href="https://t.me/+xRKYj01s2gI5NTAx" id="manual-link">clique aqui</a>.</small></p>
-    </div>
-  </div>
-
-  <script>
-    const verifyBtn = document.getElementById('verify-btn');
-    const ageCheckbox = document.getElementById('age-checkbox');
-    const initialPage = document.getElementById('initial-page');
-    const redirectPage = document.getElementById('redirect-page');
-    const manualLink = document.getElementById('manual-link');
-    const counter = document.getElementById('counter');
-
-    // SEU LINK DO TELEGRAM OU ABRE.AI AQUI:
-    const telegramLink = "https://t.me/+xRKYj01s2gI5NTAx";
-
-    // Contador falso
-    let count = 12;
-    const countdownInterval = setInterval(() => {
-      count--;
-      counter.textContent = count;
-      if (count <= 0) clearInterval(countdownInterval);
-    }, 5000);
-
-    verifyBtn.addEventListener('click', () => {
-      if (ageCheckbox.checked) {
-        initialPage.classList.add('hidden');
-        redirectPage.classList.remove('hidden');
-        setTimeout(() => {
-          window.location.href = telegramLink;
-        }, 3000);
-      } else {
-        alert("Você precisa marcar a confirmação para continuar.");
-      }
-    });
-
-    manualLink.href = telegramLink;
-    manualLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.location.href = telegramLink;
-    });
-
-    document.addEventListener('contextmenu', (e) => e.preventDefault());
-  </script>
+  <small>Conteúdo reservado para maiores de 18 anos. Acesse com responsabilidade.</small>
 </body>
 </html>
